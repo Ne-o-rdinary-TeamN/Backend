@@ -103,6 +103,7 @@ public class PostService {
         return postList.stream()
                 .map(PostConverter::toSinglePostViewResultDTO)
                 .toList();
+    }
 
     @Transactional
     public Boolean vote(JwtPrincipal user, VoteReq req) {
