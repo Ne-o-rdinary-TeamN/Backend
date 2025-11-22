@@ -13,7 +13,9 @@ import spring.hackerthon.comment.domain.Comment;
 import spring.hackerthon.comment.dto.CommentRequestDTO;
 import spring.hackerthon.comment.dto.CommentResponseDTO;
 import spring.hackerthon.comment.service.CommentService;
+import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.ApiResponse;
+import spring.hackerthon.global.response.status.ErrorStatus;
 import spring.hackerthon.global.security.JwtPrincipal;
 
 @RestController
@@ -33,5 +35,16 @@ public class CommentController {
 
         Comment comment = commentService.createComment(user.userPk(), postPk, request);
         return ApiResponse.onSuccess(CommentConverter.toCommentCreateResultDTO(comment));
+    }
+
+    //댓글 좋아요
+    @PostMapping("/api/comment/{commentPk}/like")
+    @Operation(summary = "댓글 좋아요", description = "댓글 좋아요")
+    public ApiResponse<Boolean> likeComment(@AuthenticationPrincipal JwtPrincipal user, @PathVariable("commentPk") Long commentPk) {
+        if(user == null) {
+            throw new GeneralHandler(ErrorStatus.UNAUTHORIZED);
+        }
+
+        return ApiResponse.onSuccess(commentService.likeComment(user, commentPk));
     }
 }
