@@ -53,6 +53,11 @@ public class CommentService {
 
     @Transactional
     public Boolean likeComment(JwtPrincipal user, Long commentPk) {
+        //이미 해당 댓글에 좋아요를 누른 경우 오류
+        if(commentLikeRepository.existsByUser_UserPkAndComment_CommentPk(user.userPk(), commentPk)) {
+            throw new GeneralHandler(ErrorStatus.BAD_REQUEST);
+        }
+
         Comment c = commentRepository.findByCommentPk(commentPk).orElseThrow(() -> new GeneralHandler(ErrorStatus.COMMENT_NOT_FOUND));
         User userRef = em.getReference(User.class, user.userPk());
 
