@@ -54,7 +54,7 @@ public class JwtStompChannelInterceptor implements ChannelInterceptor {
             String nickname = toStringOrNull(claims.get("nickname"));
             Long age = toLong(claims.get("age"));
 
-            JwtPrincipal principal = new JwtPrincipal(userPk, userId, userName, nickname, age, roles);
+            JwtPrincipal principal = new JwtPrincipal(userPk, userId, userName, roles);
 
             Authentication authn =
                     new UsernamePasswordAuthenticationToken(principal, "", authorities);
