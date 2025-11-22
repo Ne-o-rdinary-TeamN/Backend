@@ -29,14 +29,18 @@ public class PostResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostListDTO {
+
         private Long postPk;
         private String title;
         private Category category;
+        private String agree;
+        private String disagree;
         private Long agreeCount;
         private Long disagreeCount;
         private Double agreeRate;
         private Double disagreeRate;
         private Long totalCount;
+        private List<String> hashtags;
     }
 
     @Getter
@@ -45,6 +49,9 @@ public class PostResponseDTO {
     @AllArgsConstructor
     public static class PostDetailDTO {
 
+        private boolean participated;
+        private String agree;
+        private String disagree;
         private Long postPk;
         private String title;
 

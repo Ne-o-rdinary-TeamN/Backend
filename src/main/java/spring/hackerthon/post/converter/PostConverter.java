@@ -15,7 +15,12 @@ public class PostConverter {
                 .build();
     }
     public static PostResponseDTO.PostListDTO toPostListDTO(Post post) {
+        List<String> hashtags = post.getHashtags().stream()
+                .map(h -> h.getName())
+                .toList();
         return PostResponseDTO.PostListDTO.builder()
+                .agree(post.getAgree())
+                .disagree(post.getDisagree())
                 .postPk(post.getPostPk())
                 .title(post.getTitle())
                 .category(post.getCategory())
@@ -24,6 +29,7 @@ public class PostConverter {
                 .agreeRate(post.getAgreeRate())
                 .disagreeRate(post.getDisagreeRate())
                 .totalCount(post.getTotalCount())
+                .hashtags(hashtags)
                 .build();
     }
 
@@ -31,6 +37,7 @@ public class PostConverter {
                 Post post,
                 List<String> hashtags,
                 List<HotNews> news
+
         ) {
             return PostResponseDTO.PostDetailDTO.builder()
                     .postPk(post.getPostPk())

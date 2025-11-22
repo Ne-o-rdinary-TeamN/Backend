@@ -77,6 +77,8 @@ public class PostService {
         }
         return postRepository.findAllByCategory(category, pageable);
     }
+
+
     public PostResponseDTO.PostDetailDTO getPostDetail(Long postPk) {
 
         Post post = postRepository.findById(postPk)
