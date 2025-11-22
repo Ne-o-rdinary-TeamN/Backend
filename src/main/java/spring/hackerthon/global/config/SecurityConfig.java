@@ -48,7 +48,7 @@ public class SecurityConfig {
                         // Swagger & 헬스
                         .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
                         // 인증/인가 공개
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/user/**").permitAll()
                         // 그 외는 인증 필요
                         .anyRequest().authenticated()
                 )
