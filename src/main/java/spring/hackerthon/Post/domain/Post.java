@@ -42,7 +42,6 @@ public class Post extends BaseEntity {
     private Double disagree_Rate;
 
     private Long comment_Count;
-    private Long scraps_Count;
     private Long total_Count;
 
     @ManyToOne(fetch = FetchType.LAZY)
