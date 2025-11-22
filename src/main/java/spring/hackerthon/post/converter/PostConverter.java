@@ -11,6 +11,7 @@ public class PostConverter {
 
     public static PostResponseDTO.SinglePostViewResultDTO toSinglePostViewResultDTO(Post post) {
         return PostResponseDTO.SinglePostViewResultDTO.builder()
+                .postPk(post.getPostPk())
                 .postName(post.getTitle())
                 .hashtags(post.getHashtags().stream()
                         .map(Hashtag::getName).toList())

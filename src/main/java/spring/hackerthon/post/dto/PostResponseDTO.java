@@ -32,6 +32,7 @@ public class PostResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SinglePostViewResultDTO {
+        private Long postPk;
         private String postName;
         private List<String> hashtags;
         private Long agreeCount;
