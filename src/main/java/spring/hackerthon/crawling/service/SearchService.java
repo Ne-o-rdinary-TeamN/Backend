@@ -28,6 +28,9 @@ public class SearchService {
     public NewsResponseDTO.NewsItemsResponseDTO searchTop5News(String query, Integer display) {
         NewsResponseDTO.NewsItemsResponseDTO newsItemsResponseDTO = searchClient.searchNews(query, display);
 
+        //기존 데이터 삭제
+        newsRepository.deleteAll();
+
         //서비스 내부 News 엔티티로 변환후 저장
         List<News> newsList = newsItemsResponseDTO.getItems().stream()
                 .map(i -> News.builder()
