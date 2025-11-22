@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.opinion.domain.Opinion;
+import spring.hackerthon.opinion.repository.OpinionRepository;
 import spring.hackerthon.post.converter.PostConverter;
 import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.post.domain.Post;
@@ -26,6 +28,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final HashtagRepository hashtagRepository;
+    private final OpinionRepository opinionRepository;
 
     @Transactional
     public Post joinPost(Long userPk, PostRequestDTO.PostCreateRequestDTO request) {
@@ -69,8 +72,16 @@ public class PostService {
                 .collect(Collectors.joining(" "));
     }
 
-    public void getParticipatePost(Long userPk) {
+    public List<PostResponseDTO.SinglePostViewResultDTO> getParticipatePost(Long userPk) {
 
+        User user = userRepository.findById(userPk)
+                .orElseThrow(() -> new GeneralHandler(ErrorStatus.USER_NOT_FOUND));
+
+        List<Opinion> opinionList = opinionRepository.findAllByUser(user);
+
+        return opinionList.stream()
+                .map(op -> PostConverter.toSinglePostViewResultDTO(op.getPost()))
+                .toList();
     }
 
     public List<PostResponseDTO.SinglePostViewResultDTO> getMyPost(Long userPk) {

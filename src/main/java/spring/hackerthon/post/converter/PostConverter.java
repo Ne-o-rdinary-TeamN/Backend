@@ -1,5 +1,6 @@
 package spring.hackerthon.post.converter;
 
+import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostResponseDTO;
 
@@ -18,7 +19,7 @@ public class PostConverter {
         return PostResponseDTO.SinglePostViewResultDTO.builder()
                 .postName(post.getTitle())
                 .hashtags(post.getHashtags().stream()
-                        .map(Object::toString).toList())
+                        .map(Hashtag::getName).toList())
                 .agreeCount(post.getAgreeCount())
                 .disagreeCount(post.getDisagreeCount())
                 .agreeRate(post.getAgreeRate())

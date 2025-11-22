@@ -38,13 +38,15 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
     }
 
-/*    @GetMapping("/{userPk}/join")
-    public ApiResponse<PostResponseDTO.PostViewResultDTO> viewParticipatePost(
+    @GetMapping("/{userPk}/join")
+    @Operation(summary = "본인이 참여한 투표글 조회 API", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
+    public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewParticipatePost(
             @AuthenticationPrincipal JwtPrincipal user,
             @PathVariable("userPk") Long userPk) {
 
-        postService.getParticipatePost(userPk);
-    }*/
+        List<PostResponseDTO.SinglePostViewResultDTO> participatePosts = postService.getParticipatePost(userPk);
+        return ApiResponse.onSuccess(PostConverter.toTotalPostViewResultDTO(participatePosts));
+    }
 
     @GetMapping("/my")
     @Operation(summary = "본인이 생성한 투표글 조회 API", description = "본인이 생성한 투표글들을 조회하는 API입니다.")
