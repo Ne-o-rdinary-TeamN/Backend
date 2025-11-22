@@ -1,13 +1,14 @@
 package spring.hackerthon.post.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import spring.hackerthon.post.domain.Category;
+
+import java.util.List;
 
 public class PostRequestDTO {
 
     @Getter
+    @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
@@ -17,6 +18,7 @@ public class PostRequestDTO {
         private String content;
         private String agree;
         private String disagree;
-        private String category;
+        private Category category;
+        private List<String> hashtags;
     }
 }

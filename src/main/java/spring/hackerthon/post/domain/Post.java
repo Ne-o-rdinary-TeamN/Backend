@@ -48,7 +48,12 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_pk")
     private User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Recommendation> recommendations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Hashtag> hashtags = new ArrayList<>();
 }
 
