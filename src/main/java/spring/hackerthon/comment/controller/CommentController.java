@@ -22,7 +22,6 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    //투표 기능 완성 후에 투표한 사람만 댓글 작성 가능한 로직 추가해야함
     @PostMapping("/{postPk}/comment")
     @Operation(summary = "투표글 댓글 작성 API", description = "투표글에 댓글을 작성할 수 있는 API입니다.")
     public ApiResponse<CommentResponseDTO.CommentCreateResultDTO> writeComment(
