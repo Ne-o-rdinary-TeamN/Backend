@@ -53,6 +53,7 @@ public class PostConverter {
     }
 
 
+        //상세조회용 컨버터(참여여부, 해시태그, 관련뉴스 추가)
         public static PostResponseDTO.PostDetailDTO toPostDetailDTO(
                 boolean participated,
                 Post post,

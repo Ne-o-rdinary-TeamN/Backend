@@ -21,5 +21,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Long countByUser_UserPk(long userPk);
     Optional<Post> findByPostPk(long postPk);
 
+    //목록별 글 조회
     Page<Post> findAllByCategory(Category category, Pageable pageable);
 }

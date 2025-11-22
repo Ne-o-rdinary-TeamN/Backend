@@ -67,6 +67,7 @@ public class PostResponseDTO {
         private List<String> hashtags;
     }
 
+    //상세조회용 DTO
     @Getter
     @Builder
     @NoArgsConstructor
