@@ -14,6 +14,8 @@ import spring.hackerthon.user.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 public class PostResponseDTO {
 
     @Getter
@@ -24,6 +26,28 @@ public class PostResponseDTO {
         private Long postPk;
         private String title;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SinglePostViewResultDTO {
+        private String postName;
+        private List<String> hashtags;
+        private Long agreeCount;
+        private Long disagreeCount;
+        private Double agreeRate;
+        private Double disagreeRate;
+    }
+      
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TotalPostViewResultDTO {
+        List<SinglePostViewResultDTO> singlePostViewResultDTOList;
+    }
+
     @Getter
     @Builder
     @NoArgsConstructor
@@ -61,6 +85,5 @@ public class PostResponseDTO {
         private List<String> hashtags;
         private List<HotNews> news;
     }
-
 
 }
