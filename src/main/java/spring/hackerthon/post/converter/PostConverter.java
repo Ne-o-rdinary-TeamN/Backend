@@ -54,12 +54,16 @@ public class PostConverter {
 
 
         public static PostResponseDTO.PostDetailDTO toPostDetailDTO(
+                boolean participated,
                 Post post,
                 List<String> hashtags,
                 List<HotNews> news
 
         ) {
             return PostResponseDTO.PostDetailDTO.builder()
+                    .participated(participated)
+                    .agree(post.getAgree())
+                    .disagree(post.getDisagree())
                     .postPk(post.getPostPk())
                     .title(post.getTitle())
                     .category(post.getCategory())

@@ -87,8 +87,9 @@ public class PostController {
     @GetMapping("/{postPk}")
     @Operation(summary = "글 상세 조회",description = "댓글을 제외한 세부정보를 제공합니다.")
     public ApiResponse<PostResponseDTO.PostDetailDTO> getPostDetail(
-            @PathVariable Long postPk
+            @PathVariable Long postPk,
+            @AuthenticationPrincipal JwtPrincipal user
     ) {
-        return ApiResponse.onSuccess(postService.getPostDetail(postPk));
+        return ApiResponse.onSuccess(postService.getPostDetail(postPk, user));
     }
 }

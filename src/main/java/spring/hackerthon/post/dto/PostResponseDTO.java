@@ -72,8 +72,8 @@ public class PostResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostDetailDTO {
-
         private boolean participated;
+
         private String agree;
         private String disagree;
         private Long postPk;
