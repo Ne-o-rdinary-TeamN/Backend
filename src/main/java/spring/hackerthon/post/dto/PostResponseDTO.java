@@ -47,7 +47,11 @@ public class PostResponseDTO {
     public static class TotalPostViewResultDTO {
         List<SinglePostViewResultDTO> singlePostViewResultDTOList;
     }
-      
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class PostListDTO {
         private Long postPk;
         private String title;
@@ -59,6 +63,10 @@ public class PostResponseDTO {
         private Long totalCount;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class PostDetailDTO {
 
         private Long postPk;
