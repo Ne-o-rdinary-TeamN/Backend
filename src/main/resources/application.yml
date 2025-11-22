@@ -13,6 +13,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
         format_sql: true
         use_sql_comments: true
@@ -35,3 +36,4 @@ security:
   jwt:
     secret: ${SECURITY_JWT_SECRET}
     access-token-validity-ms: ${SECURITY_JWT_AT_EXPIRE}   #5hours
+

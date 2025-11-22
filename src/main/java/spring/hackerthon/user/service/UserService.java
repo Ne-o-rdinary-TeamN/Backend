@@ -5,12 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.global.security.JwtPrincipal;
 import spring.hackerthon.global.security.JwtTokenProvider;
+import spring.hackerthon.opinion.repository.OpinionRepository;
+import spring.hackerthon.post.repository.PostRepository;
 import spring.hackerthon.user.domain.User;
-import spring.hackerthon.user.dto.UserLoginReq;
-import spring.hackerthon.user.dto.UserLoginRes;
-import spring.hackerthon.user.dto.UserSignUpReq;
-import spring.hackerthon.user.dto.UserSignUpRes;
+import spring.hackerthon.user.dto.*;
 import spring.hackerthon.user.repository.UserRepository;
 
 import java.util.Collections;
@@ -22,6 +22,8 @@ import java.util.Map;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final OpinionRepository opinionRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -77,6 +79,22 @@ public class UserService {
                 .accessToken(newAccess)
                 .expiresIn(jwtTokenProvider.getAccessValidityMs())
                 .userPk(user.getUserPk())
+                .build();
+    }
+    
+    public UserCheckRes check(JwtPrincipal user) {
+        //등록한 토론 개수 조회
+        Long createdCnt = postRepository.countByUser_UserPk(user.userPk());
+
+        // 참여한 토론 개수 조회
+        Long joinedCnt = opinionRepository.countByUser_UserPk(user.userPk());
+
+        return UserCheckRes.builder()
+                .userPk(user.userPk())
+                .name(user.userName())
+                .userId(user.userId())
+                .createdCnt(createdCnt)
+                .joinedCnt(joinedCnt)
                 .build();
     }
 }

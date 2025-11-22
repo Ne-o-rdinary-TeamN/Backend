@@ -13,10 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import spring.hackerthon.global.security.JsonSecurityHandlers;
 import spring.hackerthon.global.security.JwtAuthenticationFilter;
 import spring.hackerthon.global.security.JwtTokenProvider;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +51,7 @@ public class SecurityConfig {
                         // Swagger & 헬스
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
                         // 인증/인가 공개
-                        .requestMatchers("/api/user/**").permitAll()
+                        .requestMatchers("/api/user/signup", "/api/user/login").permitAll()
                         // 그 외는 인증 필요
                         .anyRequest().authenticated()
                 )
