@@ -17,9 +17,9 @@ public class News {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long newsPk;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String newsTitle;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String url;
 }

@@ -19,7 +19,9 @@ public enum ErrorStatus implements BaseErrorCode {
     SAME_USERNAME(HttpStatus.BAD_REQUEST, "MEMBER4000", "중복된 이름입니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER4001", "존재하지 않는 유저입니다."),
 
-    CONTENT_NOT_FOUND(HttpStatus.NOT_FOUND, "CONTENT4000", "존재하지 않는 컨텐츠입니다.")
+    CONTENT_NOT_FOUND(HttpStatus.NOT_FOUND, "CONTENT4000", "존재하지 않는 컨텐츠입니다."),
+
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST4000", "존재하지 않는 게시글입니다.")
     ;
 
     private final HttpStatus httpStatus;

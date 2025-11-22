@@ -2,10 +2,13 @@ package spring.hackerthon.post.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import spring.hackerthon.recommendation.domain.Recommendation;
 import spring.hackerthon.user.domain.User;
 import spring.hackerthon.global.common.BaseEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_post")
@@ -48,5 +51,8 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_pk")
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    private List<Recommendation> recommendations = new ArrayList<>();
 }
 
