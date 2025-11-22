@@ -17,6 +17,20 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 1000
+
+cloud:
+  aws:
+    s3:
+      bucket: hackerthon-bk
+      path:
+        image : images
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
 security:
   jwt:
     secret: ${SECURITY_JWT_SECRET}
