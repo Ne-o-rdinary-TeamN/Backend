@@ -6,9 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.news.dto.HotNews;
+import spring.hackerthon.post.converter.PostConverter;
 import spring.hackerthon.post.domain.Category;
 import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.post.domain.Post;
+import spring.hackerthon.post.dto.PostResponseDTO;
 import spring.hackerthon.post.repository.HashtagRepository;
 import spring.hackerthon.user.domain.User;
 import spring.hackerthon.post.dto.PostRequestDTO;
@@ -74,4 +77,26 @@ public class PostService {
         }
         return postRepository.findAllByCategory(category, pageable);
     }
+    public PostResponseDTO.PostDetailDTO getPostDetail(Long postPk) {
+
+        Post post = postRepository.findById(postPk)
+                .orElseThrow(() -> new GeneralHandler(ErrorStatus.POST_NOT_FOUND));
+
+        List<String> hashtags = post.getHashtags().stream()
+                .map(Hashtag::getName)
+                .toList();
+
+        List<HotNews> news = post.getRecommendations()
+                .stream()
+                .map(r -> HotNews.builder()
+                        .newsPk(r.getRecommendationPk())
+                        .title(r.getTitle())
+                        .url(r.getUrl())
+                        .build()
+                )
+                .toList();
+
+        return PostConverter.toPostDetailDTO(post, hashtags, news);
+    }
+
 }

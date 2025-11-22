@@ -6,10 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import spring.hackerthon.crawling.dto.NewsResponseDTO;
 import spring.hackerthon.crawling.service.SearchService;
 import spring.hackerthon.global.response.ApiResponse;
 import spring.hackerthon.global.security.JwtPrincipal;
@@ -57,4 +55,11 @@ public class PostController {
         return ApiResponse.onSuccess(dtoPage);
     }
 
+    @GetMapping("/{postPk}")
+    @Operation(summary = "글 상세 조회",description = "댓글을 제외한 세부정보를 제공합니다.")
+    public ApiResponse<PostResponseDTO.PostDetailDTO> getPostDetail(
+            @PathVariable Long postPk
+    ) {
+        return ApiResponse.onSuccess(postService.getPostDetail(postPk));
+    }
 }
