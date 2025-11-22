@@ -1,8 +1,7 @@
 package spring.hackerthon.user.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import spring.hackerthon.global.common.BaseEntity;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tb_user")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class User extends BaseEntity {
 
     @Id
@@ -26,8 +27,5 @@ public class User extends BaseEntity {
 
     @Column(length = 255)
     private String userPw;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

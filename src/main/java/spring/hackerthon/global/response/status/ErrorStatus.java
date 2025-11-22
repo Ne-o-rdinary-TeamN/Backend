@@ -17,7 +17,8 @@ public enum ErrorStatus implements BaseErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
     SAME_USERNAME(HttpStatus.BAD_REQUEST, "MEMBER4000", "중복된 이름입니다."),
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER4001", "존재하지 않는 유저입니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER4001", "아이디 또는 비밀번호가 일치하지 않습니다."),
+    SAME_USERID(HttpStatus.BAD_REQUEST, "MEMBER4002", "이미 존재하는 아이디입니다."),
 
     CONTENT_NOT_FOUND(HttpStatus.NOT_FOUND, "CONTENT4000", "존재하지 않는 컨텐츠입니다."),
 
