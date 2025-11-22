@@ -31,3 +31,7 @@ cloud:
     credentials:
       accessKey: ${AWS_ACCESS_KEY_ID}
       secretKey: ${AWS_SECRET_ACCESS_KEY}
+security:
+  jwt:
+    secret: ${SECURITY_JWT_SECRET}
+    access-token-validity-ms: ${SECURITY_JWT_AT_EXPIRE}   #5hours
