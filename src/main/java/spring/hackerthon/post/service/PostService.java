@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.post.domain.Category;
 import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.repository.HashtagRepository;
