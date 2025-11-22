@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import spring.hackerthon.global.response.ApiResponse;
 import spring.hackerthon.news.dto.HotNewsRes;
 import spring.hackerthon.news.service.NewsService;
 
@@ -18,7 +19,7 @@ public class NewsController {
 
     @GetMapping("/hot")
     @Operation(summary = "핫 뉴스 전체 목록 조회", description = "핫 뉴스 전체 목록 조회(5개)")
-    public HotNewsRes getHotNews() {
-        return newsService.getHotNews();
+    public ApiResponse<HotNewsRes> getHotNews() {
+        return ApiResponse.onSuccess(newsService.getHotNews());
     }
 }
