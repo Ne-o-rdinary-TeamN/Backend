@@ -4,13 +4,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import spring.hackerthon.crawling.dto.NewsResponseDTO;
 import spring.hackerthon.crawling.service.SearchService;
 import spring.hackerthon.global.response.ApiResponse;
 import spring.hackerthon.global.security.JwtPrincipal;
 import spring.hackerthon.post.converter.PostConverter;
+import spring.hackerthon.post.domain.Category;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostRequestDTO;
 import spring.hackerthon.post.dto.PostResponseDTO;
@@ -40,7 +43,6 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
     }
 
-  
     @GetMapping("/{userPk}/join")
     @Operation(summary = "본인이 참여한 투표글 조회 API", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
     public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewParticipatePost(
@@ -64,5 +66,29 @@ public class PostController {
     @Operation(summary = "투표", description = "투표")
     public ApiResponse<Boolean> vote(@AuthenticationPrincipal JwtPrincipal user, VoteReq req) {
         return ApiResponse.onSuccess(postService.vote(user, req));
+    }
+  
+    @GetMapping("/list")
+    @Operation(summary = "글 목록 조회")
+    public ApiResponse<Page<PostResponseDTO.PostListDTO>> getPostList(
+            @RequestParam(required = false) Category category,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+        Pageable pageable = PageRequest.of(page, 10); // page=0부터 시작, size=10
+
+        Page<Post> posts = postService.getPostList(category, pageable);
+
+        Page<PostResponseDTO.PostListDTO> dtoPage =
+                posts.map(PostConverter::toPostListDTO);
+
+        return ApiResponse.onSuccess(dtoPage);
+    }
+
+    @GetMapping("/{postPk}")
+    @Operation(summary = "글 상세 조회",description = "댓글을 제외한 세부정보를 제공합니다.")
+    public ApiResponse<PostResponseDTO.PostDetailDTO> getPostDetail(
+            @PathVariable Long postPk
+    ) {
+        return ApiResponse.onSuccess(postService.getPostDetail(postPk));
     }
 }
