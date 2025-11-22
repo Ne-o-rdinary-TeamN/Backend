@@ -2,6 +2,7 @@ package spring.hackerthon.post.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +17,10 @@ import spring.hackerthon.post.domain.Category;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostRequestDTO;
 import spring.hackerthon.post.dto.PostResponseDTO;
+import spring.hackerthon.post.dto.VoteReq;
 import spring.hackerthon.post.service.PostService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +43,31 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
     }
 
+    @GetMapping("/{userPk}/join")
+    @Operation(summary = "본인이 참여한 투표글 조회 API", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
+    public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewParticipatePost(
+            @AuthenticationPrincipal JwtPrincipal user,
+            @PathVariable("userPk") Long userPk) {
+
+        List<PostResponseDTO.SinglePostViewResultDTO> participatePosts = postService.getParticipatePost(userPk);
+        return ApiResponse.onSuccess(PostConverter.toTotalPostViewResultDTO(participatePosts));
+    }
+
+    @GetMapping("/my")
+    @Operation(summary = "본인이 생성한 투표글 조회 API", description = "본인이 생성한 투표글들을 조회하는 API입니다.")
+    public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewMyPost(
+            @AuthenticationPrincipal JwtPrincipal user) {
+
+        List<PostResponseDTO.SinglePostViewResultDTO> myPosts = postService.getMyPost(user.userPk());
+        return ApiResponse.onSuccess(PostConverter.toTotalPostViewResultDTO(myPosts));
+    }
+
+    @PostMapping("/vote")
+    @Operation(summary = "투표", description = "투표")
+    public ApiResponse<Boolean> vote(@AuthenticationPrincipal JwtPrincipal user, VoteReq req) {
+        return ApiResponse.onSuccess(postService.vote(user, req));
+    }
+  
     @GetMapping("/list")
     @Operation(summary = "글 목록 조회")
     public ApiResponse<Page<PostResponseDTO.PostListDTO>> getPostList(

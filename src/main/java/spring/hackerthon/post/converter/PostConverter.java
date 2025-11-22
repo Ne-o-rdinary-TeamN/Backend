@@ -1,5 +1,6 @@
 package spring.hackerthon.post.converter;
 
+import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.news.dto.HotNews;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostResponseDTO;
@@ -33,6 +34,7 @@ public class PostConverter {
                 .build();
     }
 
+
         public static PostResponseDTO.PostDetailDTO toPostDetailDTO(
                 Post post,
                 List<String> hashtags,
@@ -54,5 +56,3 @@ public class PostConverter {
                     .build();
         }
     }
-
-
