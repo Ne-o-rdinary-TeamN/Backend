@@ -11,4 +11,17 @@ public class PostConverter {
                 .title(post.getTitle())
                 .build();
     }
+    public static PostResponseDTO.PostListDTO toPostListDTO(Post post) {
+        return PostResponseDTO.PostListDTO.builder()
+                .postPk(post.getPostPk())
+                .title(post.getTitle())
+                .category(post.getCategory())
+                .agreeCount(post.getAgreeCount())
+                .disagreeCount(post.getDisagreeCount())
+                .agreeRate(post.getAgreeRate())
+                .disagreeRate(post.getDisagreeRate())
+                .totalCount(post.getTotalCount())
+                .build();
+    }
+
 }

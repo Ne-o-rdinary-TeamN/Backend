@@ -1,6 +1,8 @@
 package spring.hackerthon.post.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
@@ -65,4 +67,11 @@ public class PostService {
                 .collect(Collectors.joining(" "));
     }
 
+    public Page<Post> getPostList(Category category, Pageable pageable) {
+
+        if (category == null) {
+            return postRepository.findAll(pageable);
+        }
+        return postRepository.findAllByCategory(category, pageable);
+    }
 }
