@@ -15,6 +15,8 @@ import spring.hackerthon.post.dto.PostRequestDTO;
 import spring.hackerthon.post.dto.PostResponseDTO;
 import spring.hackerthon.post.service.PostService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
@@ -34,5 +36,22 @@ public class PostController {
         searchService.searchKeywordNews(post.getPostPk(), keywords, 3);
 
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
+    }
+
+/*    @GetMapping("/{userPk}/join")
+    public ApiResponse<PostResponseDTO.PostViewResultDTO> viewParticipatePost(
+            @AuthenticationPrincipal JwtPrincipal user,
+            @PathVariable("userPk") Long userPk) {
+
+        postService.getParticipatePost(userPk);
+    }*/
+
+    @GetMapping("/my")
+    @Operation(summary = "본인이 생성한 투표글 조회 API", description = "본인이 생성한 투표글들을 조회하는 API입니다.")
+    public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewMyPost(
+            @AuthenticationPrincipal JwtPrincipal user) {
+
+        List<PostResponseDTO.SinglePostViewResultDTO> myPosts = postService.getMyPost(user.userPk());
+        return ApiResponse.onSuccess(PostConverter.toTotalPostViewResultDTO(myPosts));
     }
 }

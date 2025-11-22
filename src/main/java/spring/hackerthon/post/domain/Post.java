@@ -25,7 +25,7 @@ public class Post extends BaseEntity {
     @Column(length = 30)
     private String title;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String url;   // 뉴스 링크
 
     @Column(length = 255)

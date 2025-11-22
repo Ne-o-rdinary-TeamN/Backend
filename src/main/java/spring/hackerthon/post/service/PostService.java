@@ -2,10 +2,13 @@ package spring.hackerthon.post.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.post.converter.PostConverter;
 import spring.hackerthon.post.domain.Hashtag;
 import spring.hackerthon.post.domain.Post;
+import spring.hackerthon.post.dto.PostResponseDTO;
 import spring.hackerthon.post.repository.HashtagRepository;
 import spring.hackerthon.user.domain.User;
 import spring.hackerthon.post.dto.PostRequestDTO;
@@ -17,12 +20,14 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final HashtagRepository hashtagRepository;
 
+    @Transactional
     public Post joinPost(Long userPk, PostRequestDTO.PostCreateRequestDTO request) {
 
         User user = userRepository.findById(userPk)
@@ -64,4 +69,19 @@ public class PostService {
                 .collect(Collectors.joining(" "));
     }
 
+    public void getParticipatePost(Long userPk) {
+
+    }
+
+    public List<PostResponseDTO.SinglePostViewResultDTO> getMyPost(Long userPk) {
+
+        User user = userRepository.findById(userPk)
+                .orElseThrow(() -> new GeneralHandler(ErrorStatus.USER_NOT_FOUND));
+
+        List<Post> postList = postRepository.findAllByUser(user);
+
+        return postList.stream()
+                .map(PostConverter::toSinglePostViewResultDTO)
+                .toList();
+    }
 }
