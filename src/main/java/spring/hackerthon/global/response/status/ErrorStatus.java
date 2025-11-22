@@ -24,7 +24,9 @@ public enum ErrorStatus implements BaseErrorCode {
 
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST4000", "존재하지 않는 게시글입니다."),
 
-    CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "CATEGORY4000", "존재하지 않는 카테고리입니다.")
+    CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "CATEGORY4000", "존재하지 않는 카테고리입니다."),
+
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT4000", "존재하지 않는 댓글입니다."),;
     ;
 
     private final HttpStatus httpStatus;
