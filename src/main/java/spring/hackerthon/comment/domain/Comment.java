@@ -31,5 +31,7 @@ public class Comment extends BaseEntity {
     @Builder.Default
     private Long likeCount = 0L;
 
+    public void updateLikes() {
+        this.likeCount = this.likeCount + 1;
+    }
 }
-

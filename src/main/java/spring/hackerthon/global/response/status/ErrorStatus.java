@@ -27,7 +27,9 @@ public enum ErrorStatus implements BaseErrorCode {
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "CATEGORY4000", "존재하지 않는 카테고리입니다."),
 
     OPINION_NOT_FOUND(HttpStatus.NOT_FOUND, "OPINION4000", "존재하지 않는 투표입니다."),
-    OPINION_DO_NOT_MATCH(HttpStatus.BAD_REQUEST, "OPINION4001", "투표 결과가 일치하지 않습니다.")
+    OPINION_DO_NOT_MATCH(HttpStatus.BAD_REQUEST, "OPINION4001", "투표 결과가 일치하지 않습니다."),
+  
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT4000", "존재하지 않는 댓글입니다.")
     ;
 
     private final HttpStatus httpStatus;
