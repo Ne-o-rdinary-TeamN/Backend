@@ -13,6 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import spring.hackerthon.global.error.exception.GeneralException;
+import spring.hackerthon.global.response.status.ErrorStatus;
 
 import java.io.IOException;
 import java.util.Collection;
