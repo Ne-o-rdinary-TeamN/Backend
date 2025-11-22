@@ -3,6 +3,7 @@ package spring.hackerthon.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.status.ErrorStatus;
 import spring.hackerthon.global.security.JwtPrincipal;
@@ -32,6 +33,7 @@ public class UserService {
      * @param request
      * @return
      */
+    @Transactional
     public UserSignUpRes signup(UserSignUpReq request) {
         //이미 존재하는 아이디 확인
         if(userRepository.existsByUserId(request.userId())) {
@@ -53,6 +55,7 @@ public class UserService {
      * @param request
      * @return
      */
+    @Transactional(readOnly = true)
     public UserLoginRes login(UserLoginReq request) {
         User user = userRepository.findUserByUserId(request.userId()).orElseThrow(() -> new GeneralHandler(ErrorStatus.USER_NOT_FOUND));
 
@@ -81,7 +84,8 @@ public class UserService {
                 .userPk(user.getUserPk())
                 .build();
     }
-    
+
+    @Transactional(readOnly = true)
     public UserCheckRes check(JwtPrincipal user) {
         //등록한 토론 개수 조회
         Long createdCnt = postRepository.countByUser_UserPk(user.userPk());
