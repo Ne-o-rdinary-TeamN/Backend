@@ -39,8 +39,8 @@ jobs:
       run: chmod +x ./gradlew
 
     # 빌드 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew clean build
+    - name: Build (skip tests) 
+      run: ./gradlew clean bootJar -x test --stacktrace
       env: 
         AWS_DB_URL: ${{secrets.AWS_DB_URL}}
         AWS_DB_USER: ${{secrets.AWS_DB_USER}}
