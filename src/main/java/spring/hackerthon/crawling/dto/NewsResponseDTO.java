@@ -23,4 +23,10 @@ public class NewsResponseDTO {
         private String description;
         private String pubDate;
     }
+
+    @Data
+    public static class SaveNewsItemDTO {
+        private String title;
+        private String url;
+    }
 }
