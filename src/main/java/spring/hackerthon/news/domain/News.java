@@ -1,4 +1,4 @@
-package spring.hackerthon.News.domain;
+package spring.hackerthon.news.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class News {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long news_Pk;
+    private Long newsPk;
 
     @Column(length = 30)
     private String newsTitle;

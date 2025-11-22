@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import spring.hackerthon.Post.domain.Post;
+import spring.hackerthon.post.domain.Post;
 
 @Entity
 @Table(name = "tb_recommendation")

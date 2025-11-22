@@ -1,4 +1,4 @@
-package spring.hackerthon.User.domain;
+package spring.hackerthon.user.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,16 +16,16 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_pk;
+    private Long userPk;
 
     @Column(length = 10)
     private String name;
 
     @Column(length = 20)
-    private String user_id;
+    private String userId;
 
     @Column(length = 255)
-    private String user_pw;
+    private String userPw;
 
     @Column(length = 20)
     private String nickname;

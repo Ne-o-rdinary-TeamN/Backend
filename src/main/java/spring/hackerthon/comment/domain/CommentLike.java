@@ -2,7 +2,7 @@ package spring.hackerthon.comment.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.hackerthon.User.domain.User;
+import spring.hackerthon.user.domain.User;
 
 
 @Entity
@@ -14,7 +14,7 @@ import spring.hackerthon.User.domain.User;
 public class CommentLike {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_like_pk;
+    private Long commentLikePk;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_pk")

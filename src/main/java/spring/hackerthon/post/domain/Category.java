@@ -1,4 +1,4 @@
-package spring.hackerthon.Post.domain;
+package spring.hackerthon.post.domain;
 
 public enum Category {
     SOCIAL,     // 사회

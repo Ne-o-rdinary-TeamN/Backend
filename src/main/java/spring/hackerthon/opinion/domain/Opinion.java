@@ -2,8 +2,8 @@ package spring.hackerthon.opinion.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.hackerthon.Post.domain.Post;
-import spring.hackerthon.User.domain.User;
+import spring.hackerthon.post.domain.Post;
+import spring.hackerthon.user.domain.User;
 
 @Entity
 @Table(name = "tb_opinion")
@@ -14,7 +14,7 @@ import spring.hackerthon.User.domain.User;
 public class Opinion {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long opinion_Pk;
+    private Long opinionPk;
 
     @Enumerated(EnumType.STRING)
     private OpinionType opinion;   // AGREE / DISAGREE

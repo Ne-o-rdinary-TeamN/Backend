@@ -2,8 +2,8 @@ package spring.hackerthon.comment.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.hackerthon.Post.domain.Post;
-import spring.hackerthon.User.domain.User;
+import spring.hackerthon.post.domain.Post;
+import spring.hackerthon.user.domain.User;
 import spring.hackerthon.global.common.BaseEntity;
 
 @Entity
@@ -15,7 +15,7 @@ import spring.hackerthon.global.common.BaseEntity;
 public class Comment extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_Pk;
+    private Long commentPk;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_pk")

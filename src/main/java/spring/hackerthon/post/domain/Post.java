@@ -1,8 +1,8 @@
-package spring.hackerthon.Post.domain;
+package spring.hackerthon.post.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.hackerthon.User.domain.User;
+import spring.hackerthon.user.domain.User;
 import spring.hackerthon.global.common.BaseEntity;
 
 import java.time.LocalDate;
@@ -17,13 +17,13 @@ public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long post_Pk;
+    private Long postPk;
 
     @Column(length = 30)
     private String title;
 
-    private LocalDate start_Date;
-    private LocalDate finish_Date;
+    private LocalDate startDate;
+    private LocalDate finishDate;
 
     @Column(length = 50)
     private String url;   // 뉴스 링크
@@ -36,14 +36,14 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private Long agree_Count;
-    private Long disagree_Count;
-    private Double agree_Rate;
-    private Double disagree_Rate;
+    private Long agreeCount;
+    private Long disagreeCount;
+    private Double agreeRate;
+    private Double disagreeRate;
 
-    private Long comment_Count;
-    private Long scraps_Count;
-    private Long total_Count;
+    private Long commentCount;
+    private Long scrapsCount;
+    private Long totalCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_pk")

@@ -1,12 +1,12 @@
-package spring.hackerthon.Scrap.Domain;
+package spring.hackerthon.scrap.Domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import spring.hackerthon.Post.domain.Post;
-import spring.hackerthon.User.domain.User;
+import spring.hackerthon.post.domain.Post;
+import spring.hackerthon.user.domain.User;
 
 
 @Entity
@@ -18,7 +18,7 @@ import spring.hackerthon.User.domain.User;
 public class Scrap {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long scrap_Pk;
+    private Long scrapPk;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_pk")

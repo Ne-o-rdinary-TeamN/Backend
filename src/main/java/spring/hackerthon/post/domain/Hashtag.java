@@ -1,4 +1,4 @@
-package spring.hackerthon.Post.domain;
+package spring.hackerthon.post.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ public class Hashtag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hash_Tag_Key;
+    private Long hashTagPk;
 
     @Column(length = 20)
     private String name;
