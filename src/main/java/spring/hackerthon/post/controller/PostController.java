@@ -2,6 +2,7 @@ package spring.hackerthon.post.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import spring.hackerthon.post.converter.PostConverter;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostRequestDTO;
 import spring.hackerthon.post.dto.PostResponseDTO;
+import spring.hackerthon.post.dto.VoteReq;
 import spring.hackerthon.post.service.PostService;
 
 import java.util.List;
@@ -38,6 +40,7 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
     }
 
+  
     @GetMapping("/{userPk}/join")
     @Operation(summary = "본인이 참여한 투표글 조회 API", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
     public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewParticipatePost(
@@ -55,5 +58,11 @@ public class PostController {
 
         List<PostResponseDTO.SinglePostViewResultDTO> myPosts = postService.getMyPost(user.userPk());
         return ApiResponse.onSuccess(PostConverter.toTotalPostViewResultDTO(myPosts));
+    }
+
+    @PostMapping("/vote")
+    @Operation(summary = "투표", description = "투표")
+    public ApiResponse<Boolean> vote(@AuthenticationPrincipal JwtPrincipal user, VoteReq req) {
+        return ApiResponse.onSuccess(postService.vote(user, req));
     }
 }
