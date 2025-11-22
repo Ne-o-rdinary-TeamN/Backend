@@ -141,8 +141,7 @@ public class PostService {
 
     public PostResponseDTO.PostDetailDTO getPostDetail(Long postPk, JwtPrincipal user) {
         boolean participated = opinionRepository.existsByUser_UserPkAndPost_PostPk(user.userPk(), postPk);
-        System.out.println("participated: " + participated);
-        System.out.println("userPk:" + user.userPk());
+
         Post post = postRepository.findById(postPk)
                 .orElseThrow(() -> new GeneralHandler(ErrorStatus.POST_NOT_FOUND));
 
