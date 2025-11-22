@@ -3,16 +3,15 @@ package spring.hackerthon.comment.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spring.hackerthon.comment.converter.CommentConverter;
 import spring.hackerthon.comment.domain.Comment;
 import spring.hackerthon.comment.dto.CommentRequestDTO;
 import spring.hackerthon.comment.dto.CommentResponseDTO;
+import spring.hackerthon.comment.dto.CommentsListRes;
 import spring.hackerthon.comment.service.CommentService;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.ApiResponse;
@@ -47,5 +46,12 @@ public class CommentController {
         }
 
         return ApiResponse.onSuccess(commentService.likeComment(user, commentPk));
+    }
+
+    //댓글 조회
+    @GetMapping("/api/comment")
+    @Operation(summary = "댓글 조회", description = "댓글 목록 조회(필터링)")
+    public ApiResponse<CommentsListRes> getComments(@RequestParam("postPk") long postPk, @RequestParam("option") String option) {
+        return ApiResponse.onSuccess(commentService.getComments(postPk, option));
     }
 }

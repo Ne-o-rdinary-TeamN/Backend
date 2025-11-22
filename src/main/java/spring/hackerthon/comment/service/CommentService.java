@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import spring.hackerthon.comment.domain.Comment;
 import spring.hackerthon.comment.domain.CommentLike;
 import spring.hackerthon.comment.dto.CommentRequestDTO;
+import spring.hackerthon.comment.dto.Comments;
+import spring.hackerthon.comment.dto.CommentsListRes;
 import spring.hackerthon.comment.repository.CommentLikeRepository;
 import spring.hackerthon.comment.repository.CommentRepository;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
@@ -17,10 +19,14 @@ import spring.hackerthon.global.response.status.ErrorStatus;
 import spring.hackerthon.opinion.domain.Opinion;
 import spring.hackerthon.opinion.repository.OpinionRepository;
 import spring.hackerthon.global.security.JwtPrincipal;
+import spring.hackerthon.opinion.domain.OpinionType;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.repository.PostRepository;
 import spring.hackerthon.user.domain.User;
 import spring.hackerthon.user.repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -81,5 +87,24 @@ public class CommentService {
         commentRepository.save(c);
 
         return Boolean.TRUE;
+    }
+
+    @Transactional
+    public CommentsListRes getComments(long postPk, String option) {
+        List<Comments> cList = new ArrayList<>();
+
+        List<Comment> list = null;
+        if("ALL".equals(option)) {
+            list = commentRepository.findAllByPost_PostPk(postPk);
+        } else {
+            list = commentRepository.findAllCommentsByFiltering(OpinionType.valueOf(option), postPk);
+        }
+
+        for(Comment c : list) {
+            Comments newC = Comments.builder().commentPk(c.getCommentPk()).userId(c.getUser().getUserId()).content(c.getContent()).likes(c.getLikeCount()).build();
+            cList.add(newC);
+        }
+
+        return CommentsListRes.builder().list(cList).build();
     }
 }
