@@ -15,7 +15,6 @@ public class PostRequestDTO {
     public static class PostCreateRequestDTO {
         private String title;
         private String newsUrl;
-        private String content;
         private String agree;
         private String disagree;
         private Category category;

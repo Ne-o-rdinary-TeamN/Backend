@@ -22,10 +22,10 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postPk;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String title;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String url;   // 뉴스 링크
 
     @Column(length = 255)
