@@ -14,6 +14,8 @@ import spring.hackerthon.comment.repository.CommentRepository;
 import spring.hackerthon.global.error.exception.handler.GeneralHandler;
 import spring.hackerthon.global.response.ApiResponse;
 import spring.hackerthon.global.response.status.ErrorStatus;
+import spring.hackerthon.opinion.domain.Opinion;
+import spring.hackerthon.opinion.repository.OpinionRepository;
 import spring.hackerthon.global.security.JwtPrincipal;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.repository.PostRepository;
@@ -29,6 +31,7 @@ public class CommentService {
     private final CommentLikeRepository commentLikeRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final OpinionRepository opinionRepository;
     private final EntityManager em;
 
     @Transactional
@@ -40,6 +43,14 @@ public class CommentService {
         //존재하는 투표글인지 검증
         Post post = postRepository.findById(postPk)
                 .orElseThrow(() -> new GeneralHandler(ErrorStatus.POST_NOT_FOUND));
+
+        Opinion opinion = opinionRepository.findByUser(user)
+                .orElseThrow(() -> new GeneralHandler(ErrorStatus.OPINION_NOT_FOUND));
+
+        //투표를 한 유저만 댓글을 작성할 수 있음
+        if (!opinion.getPost().getPostPk().equals(post.getPostPk())) {
+            throw new GeneralHandler(ErrorStatus.OPINION_DO_NOT_MATCH);
+        }
 
         //댓글 생성
         Comment createdComment = Comment.builder()

@@ -28,6 +28,7 @@ public class Comment extends BaseEntity {
     @Column(length = 255)
     private String content;
 
+    @Builder.Default
     private Long likeCount = 0L;
 
     public void updateLikes() {
