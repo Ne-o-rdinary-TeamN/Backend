@@ -25,9 +25,6 @@ public class Post extends BaseEntity {
     @Column(length = 30)
     private String title;
 
-    private LocalDate startDate;
-    private LocalDate finishDate;
-
     @Column(length = 50)
     private String url;   // 뉴스 링크
 
@@ -45,14 +42,18 @@ public class Post extends BaseEntity {
     private Double disagreeRate;
 
     private Long commentCount;
-    private Long scrapsCount;
     private Long totalCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_pk")
     private User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Recommendation> recommendations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Hashtag> hashtags = new ArrayList<>();
 }
 

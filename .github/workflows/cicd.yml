@@ -47,6 +47,8 @@ jobs:
         AWS_DB_PASSWORD: ${{secrets.AWS_DB_PASSWORD}}  
         SECURITY_JWT_SECRET: ${{secrets.SECURITY_JWT_SECRET}}
         SECURITY_JWT_AT_EXPIRE: ${{secrets.SECURITY_JWT_AT_EXPIRE}}
+        AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
     # 빌드된 파일 이름 변경
     - name: 빌드된 파일 이름 변경
       run: mv ./build/libs/*SNAPSHOT.jar ./agree.jar
