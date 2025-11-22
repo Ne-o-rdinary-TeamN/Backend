@@ -20,13 +20,13 @@ public class JsonSecurityHandlers {
     /* Unauthorized exception */
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, ex) -> writeJson(response, HttpStatus.UNAUTHORIZED, ApiResponse.onFailure(ErrorStatus.UNAUTHORIZED.getCode(), ErrorStatus.UNAUTHORIZED.getMessage(), ErrorStatus.UNAUTHORIZED.getReason()));
+        return (request, response, ex) -> writeJson(response, HttpStatus.UNAUTHORIZED, ApiResponse.onFailure(ErrorStatus.UNAUTHORIZED.getCode(), ErrorStatus.UNAUTHORIZED.getMessage(), null));
     }
 
     /* Forbidden exception */
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, ex) -> writeJson(response, HttpStatus.FORBIDDEN, ApiResponse.onFailure(ErrorStatus.FORBIDDEN.getCode(), ErrorStatus.FORBIDDEN.getMessage(), ErrorStatus.FORBIDDEN.getReason()));
+        return (request, response, ex) -> writeJson(response, HttpStatus.FORBIDDEN, ApiResponse.onFailure(ErrorStatus.FORBIDDEN.getCode(), ErrorStatus.FORBIDDEN.getMessage(), null));
     }
 
     private void writeJson(HttpServletResponse res, HttpStatus status, Object body) throws java.io.IOException {
