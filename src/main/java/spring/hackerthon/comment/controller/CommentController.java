@@ -1,6 +1,7 @@
 package spring.hackerthon.comment.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import spring.hackerthon.global.response.ApiResponse;
 import spring.hackerthon.global.response.status.ErrorStatus;
 import spring.hackerthon.global.security.JwtPrincipal;
 
+@Tag(name = "댓글 컨트롤러")
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
@@ -25,7 +27,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{postPk}/comment")
-    @Operation(summary = "투표글 댓글 작성 API", description = "투표글에 댓글을 작성할 수 있는 API입니다.")
+    @Operation(summary = "투표글 댓글 작성", description = "투표글에 댓글을 작성할 수 있는 API입니다.")
     public ApiResponse<CommentResponseDTO.CommentCreateResultDTO> writeComment(
             @AuthenticationPrincipal JwtPrincipal user,
             @PathVariable("postPk") Long postPk,

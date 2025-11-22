@@ -1,6 +1,7 @@
 package spring.hackerthon.post.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import spring.hackerthon.post.service.PostService;
 
 import java.util.List;
 
+@Tag(name = "투표글 컨트롤러")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
@@ -44,7 +46,7 @@ public class PostController {
     }
 
     @GetMapping("/{userPk}/join")
-    @Operation(summary = "본인이 참여한 투표글 조회 API", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
+    @Operation(summary = "본인이 참여한 투표글 조회", description = "본인이 참여한 투표글들을 조회하는 API입니다.")
     public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewParticipatePost(
             @AuthenticationPrincipal JwtPrincipal user,
             @PathVariable("userPk") Long userPk) {
@@ -54,7 +56,7 @@ public class PostController {
     }
 
     @GetMapping("/my")
-    @Operation(summary = "본인이 생성한 투표글 조회 API", description = "본인이 생성한 투표글들을 조회하는 API입니다.")
+    @Operation(summary = "본인이 생성한 투표글 조회", description = "본인이 생성한 투표글들을 조회하는 API입니다.")
     public ApiResponse<PostResponseDTO.TotalPostViewResultDTO> viewMyPost(
             @AuthenticationPrincipal JwtPrincipal user) {
 
