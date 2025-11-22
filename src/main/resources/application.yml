@@ -17,3 +17,7 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 1000
+security:
+  jwt:
+    secret: ${SECURITY_JWT_SECRET}
+    access-token-validity-ms: ${SECURITY_JWT_AT_EXPIRE}   #5hours
