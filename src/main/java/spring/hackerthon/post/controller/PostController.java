@@ -2,6 +2,7 @@ package spring.hackerthon.post.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import spring.hackerthon.post.converter.PostConverter;
 import spring.hackerthon.post.domain.Post;
 import spring.hackerthon.post.dto.PostRequestDTO;
 import spring.hackerthon.post.dto.PostResponseDTO;
+import spring.hackerthon.post.dto.VoteReq;
 import spring.hackerthon.post.service.PostService;
 
 @RestController
@@ -34,5 +36,11 @@ public class PostController {
         searchService.searchKeywordNews(post.getPostPk(), keywords, 3);
 
         return ApiResponse.onSuccess(PostConverter.toPostCreateResponseDTO(post));
+    }
+
+    @PostMapping("/vote")
+    @Operation(summary = "투표", description = "투표")
+    public ApiResponse<Boolean> vote(@AuthenticationPrincipal JwtPrincipal user, VoteReq req) {
+        return ApiResponse.onSuccess(postService.vote(user, req));
     }
 }
