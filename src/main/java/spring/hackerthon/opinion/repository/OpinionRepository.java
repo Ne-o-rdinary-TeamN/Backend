@@ -16,7 +16,7 @@ public interface OpinionRepository extends JpaRepository<Opinion, Long> {
     @Query("SELECT o FROM Opinion o JOIN FETCH o.post WHERE o.user = :user")
     List<Opinion> findAllByUser(@Param("user") User user);
 
-    Optional<Opinion> findByUser(User user);
+    Optional<Opinion> findByUserAndPost_PostPk(User user, Long PostPk);
 
     boolean existsByUser_UserPkAndPost_PostPk(long userPk, long postPk);
 }

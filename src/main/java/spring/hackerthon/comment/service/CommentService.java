@@ -50,7 +50,7 @@ public class CommentService {
         Post post = postRepository.findById(postPk)
                 .orElseThrow(() -> new GeneralHandler(ErrorStatus.POST_NOT_FOUND));
 
-        Opinion opinion = opinionRepository.findByUser(user)
+        Opinion opinion = opinionRepository.findByUserAndPost_PostPk(user, postPk)
                 .orElseThrow(() -> new GeneralHandler(ErrorStatus.OPINION_NOT_FOUND));
 
         //투표를 한 유저만 댓글을 작성할 수 있음
